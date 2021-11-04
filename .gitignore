@@ -1,0 +1,11 @@
+node_modules/
+dist/
+built/
+.gitsecret/keys/random_seed
+!*.secret
+api/.env
+client/.env
+storage/
+api/test.env
+api/production.env
+client/production.env
