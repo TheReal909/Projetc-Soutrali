@@ -18,6 +18,7 @@ const db = require("./app/models");
 // db.sequelize.sync();
 
 //for dev , empty the database after re-run
+// db.sequelize.authenticate() for not dropping the table after rerun , instead connect to the database
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
