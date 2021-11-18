@@ -14,7 +14,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-const db = require("./app/models");
+const db = require("./models");
 // db.sequelize.sync();
 
 //for dev , empty the database after re-run

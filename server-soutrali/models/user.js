@@ -33,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     typeOfUser: {
-      type: DataTypes.NUMBER,
-      defaultValue: null
+      type: DataTypes.ENUM('Individual', 'Organisation'),
+      allowNull: null
     }
   }, {
     sequelize,

@@ -15,11 +15,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       fundRaiserType: {
-        type: Sequelize.NUMBER
+        type: Sequelize.ENUM('ForMe', 'ForSomeoneElse')
       },
       category: {
-        type: Sequelize.NUMBER
-      },
+        type: Sequelize.ENUM('Education', 'Health', 'Entrep')
+      }, 
       moneyGoal: {
         type: Sequelize.DECIMAL
       },

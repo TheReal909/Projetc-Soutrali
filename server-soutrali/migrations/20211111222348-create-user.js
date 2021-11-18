@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       typeOfUser: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.ENUM('Individual', 'Organisation'),
       },
       createdAt: {
         allowNull: false,

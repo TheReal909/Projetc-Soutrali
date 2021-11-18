@@ -25,12 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     fundRaiserType: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.ENUM('ForMe', 'ForSomeoneElse'),
+      allowNull: false
     },
     category: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.ENUM('Education', 'Health', 'Entrep'),
       allowNull: false
-    },   
+    }, 
     moneyGoal: {
       type: DataTypes.DECIMAL,
       allowNull: false
