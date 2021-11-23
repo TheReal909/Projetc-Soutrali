@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+  node_backend:
+    container_name: soutrali-backend
+    image: soutrali-backend:0.0.2
+    build:
+      context: .
+    ports:
+       - 8080:8080
+    environment:
+      - PORT=8080
+    depends_on:
+      - postgres_db
+  postgres_db:
+    container_name: soutrali_db
+    image: postgres:12
+    ports:                          
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=soutrali-db
+    volumes:
+      - nps_data:/var/lib/postgres/data
+
+volumes:
+  nps_data: {}

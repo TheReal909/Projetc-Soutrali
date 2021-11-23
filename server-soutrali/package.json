@@ -2,9 +2,10 @@
   "name": "server-soutrali",
   "version": "1.0.0",
   "description": "soutrali startup project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"nodemon src/server.js",
+    "docker:build": "docker build -f ./docker/Dockerfile . "
   },
   "author": "Hady",
   "license": "ISC",
