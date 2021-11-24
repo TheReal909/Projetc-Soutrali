@@ -1,9 +1,11 @@
 {
   "development": {
+    "host": "postgres_db",
     "username": "postgres",
     "password": "123",
-    "database": "soutrali-db",
+    "database": "soutrali_db",
     "dialect": "postgres"
+    
   },
   "test": {
     "username": "postgres",

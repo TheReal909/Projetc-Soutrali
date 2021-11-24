@@ -8,7 +8,7 @@ RUN npm install i npm@latest -g
 
 COPY server-soutrali/package*.json ./
 RUN npm install
-COPY server-soutrali/server.js ./
+COPY ./server-soutrali ./
 COPY server-soutrali/app app
 
 CMD [ "node", "server.js" ]

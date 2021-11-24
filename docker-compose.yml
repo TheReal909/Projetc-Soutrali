@@ -10,6 +10,10 @@ services:
        - 8080:8080
     environment:
       - PORT=8080
+      - PGDATABASE=soutrali_db
+      - PGUSER=postgres
+      - PGPASSWORD=123
+      - PGHOST=postgres_db
     depends_on:
       - postgres_db
   postgres_db:
@@ -20,7 +24,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=soutrali-db
+      - POSTGRES_DB=soutrali_db
     volumes:
       - nps_data:/var/lib/postgres/data
 
