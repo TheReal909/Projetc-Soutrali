@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type:  DataTypes.STRING,
       allowNull: false
+      
     },
     description: {
       type:  DataTypes.STRING,
@@ -33,9 +34,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }, 
     moneyGoal: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    actualBalance: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+
   }, {
     sequelize,
     tableName: 'fundraiser',

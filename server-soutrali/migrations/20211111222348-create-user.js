@@ -1,6 +1,6 @@
 "use strict";
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable("users", {
       uuid: {
         type: DataTypes.UUID,
@@ -10,25 +10,36 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       email: {
-        type: Sequelize.STRING,
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       typeOfUser: {
-        type: Sequelize.ENUM('Individual', 'Organisation'),
+        allowNull: false,
+        type: DataTypes.ENUM('Individual', 'Organisation'),
+      },
+      password:{
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      passwordSalt: {
+        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
+
     });
   },
   down: async (queryInterface, Sequelize) => {

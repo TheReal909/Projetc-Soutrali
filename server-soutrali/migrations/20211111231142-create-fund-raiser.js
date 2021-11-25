@@ -1,39 +1,48 @@
 'use strict';
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, DataTypes) => {
     await queryInterface.createTable('fundRaisers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: DataTypes.STRING
       },
       description: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: DataTypes.STRING
       },
       fundRaiserType: {
-        type: Sequelize.ENUM('ForMe', 'ForSomeoneElse')
+        allowNull: false,
+        type: DataTypes.ENUM('ForMe', 'ForSomeoneElse')
       },
       category: {
-        type: Sequelize.ENUM('Education', 'Health', 'Entrep')
+        allowNull: false,
+        type: DataTypes.ENUM('Education', 'Health', 'Entrep')
       }, 
       moneyGoal: {
-        type: Sequelize.DECIMAL
+        allowNull: false,
+        type: DataTypes.INTEGER
+      },
+      actualBalance: {
+        allowNull: false,
+        type: DataTypes.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },

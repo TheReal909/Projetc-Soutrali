@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
     }
 
     // the exact field that i want to hide to the public, here i want to hide the id
@@ -26,16 +26,35 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'should not be null'},
+        notEmpty: {
+          msg: 'please, enter a name'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isEmail: {
+          msg: 'please enter a valid email'
+        }
+      }
     },
     typeOfUser: {
       type: DataTypes.ENUM('Individual', 'Organisation'),
-      allowNull: null
+      allowNull: false
+    },
+    password:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    passwordSalt: {
+      type: DataTypes.STRING,
     }
+
   }, {
     sequelize,
     tableName: 'user',

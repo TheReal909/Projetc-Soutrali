@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const db = require("./models");
 
-var corsOptions = {
+var corsOptions = { 
   origin: "http://localhost:8081"
 };
 
@@ -14,8 +15,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-const db = require("./models");
-// db.sequelize.sync();
+app.use('/users', require('./app/routes/users'));
 
 //for dev , empty the database after re-run
 // db.sequelize.authenticate() for not dropping the table after rerun , instead connect to the database
