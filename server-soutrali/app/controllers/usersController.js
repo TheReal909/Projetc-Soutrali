@@ -39,7 +39,8 @@ exports.createUser = async (req, res) => {
       !user_object.name ||
       !user_object.email ||
       !user_object.typeOfUser ||
-      !user_object.password
+      !user_object.password ||
+      !user_object.password2    
     ) {
       console.log("Empty field somewhere");
       res.status(400).send({
@@ -83,6 +84,8 @@ exports.createUser = async (req, res) => {
       passwordSalt: salt,
     };
 
+    console.log(typeof createdUser.typeOfUser);
+
     try {
       const user = await Model.User.create(createdUser);
       console.log("User created !");
@@ -101,7 +104,9 @@ exports.deleteUser = async (req, res) => {
     const userToDelete = await Model.User.destroy({
       where: { uuid: req.params.uuid },
     });
-    return res.status(200);
+    return res.status(200).send({
+      message: 'user deleted'
+    });
   } catch (error) {
     return res.status(500).json(error);
   }

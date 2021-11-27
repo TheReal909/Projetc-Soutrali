@@ -2,8 +2,9 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class fundRaiser extends Model {
+  class FundRaiser extends Model {
     
     /**
      * Helper method for defining associations.
@@ -15,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(User, {foreignKey : 'userId'})
     }
   };
-  fundRaiser.init({
+  FundRaiser.init({
     name: {
       type:  DataTypes.STRING,
       allowNull: false
@@ -26,11 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     fundRaiserType: {
-      type: DataTypes.ENUM('ForMe', 'ForSomeoneElse'),
+      type: DataTypes.ENUM('ForMe', 'ForSomeoneElse', 'NonProfitOrganization'),
       allowNull: false
     },
     category: {
-      type: DataTypes.ENUM('Education', 'Health', 'Entrep'),
+      type: DataTypes.ENUM('Accident & Emergency','Education', 'Health', 'Business', 'Animals', 'Religion', 'Funerals', 'Other'),
+      defaultValue: 'Choose a category',
       allowNull: false
     }, 
     moneyGoal: {
@@ -47,5 +49,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'fundraiser',
     modelName: 'fundRaiser',
   });
-  return fundRaiser;
+  return FundRaiser;
 };

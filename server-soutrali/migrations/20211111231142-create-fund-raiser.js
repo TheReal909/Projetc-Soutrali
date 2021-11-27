@@ -21,8 +21,9 @@ module.exports = {
         type: DataTypes.ENUM('ForMe', 'ForSomeoneElse')
       },
       category: {
-        allowNull: false,
-        type: DataTypes.ENUM('Education', 'Health', 'Entrep')
+        type: DataTypes.ENUM('Accident & Emergency','Education' ,'Health', 'Business', 'Animals', 'Religion', 'Funerals', 'Other'),
+        defaultValue: 'Choose a category',
+        allowNull: false
       }, 
       moneyGoal: {
         allowNull: false,

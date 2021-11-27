@@ -1,24 +1,23 @@
 <template>
-  <v-app id="app">
-    <page-nav/>
-    <router-view/>
-  </v-app>
+  <div id="app">
+    <HelloWorld/>
+  </div>
 </template>
 
 <script>
-import PageNav from '@/components/Header.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    PageNav
+    HelloWorld
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

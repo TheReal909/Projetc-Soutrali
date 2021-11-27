@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+// const fundraiser = require('./fundraiser');
+
+const PR0TECTED_ATTRIBUTES = ['password', 'passwordSalt', 'id']
+
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -12,11 +16,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // this.hasMany(FundRaiser)
     }
-
     // the exact field that i want to hide to the public, here i want to hide the id
     // toJSON(){
     //   return {...this.get(), id: undefined};
+    // }
+
+    // shoudl use for let..of.. to iterate over the values of the object.
+    // toJSON(){
+    //   let attributes = Object.assign({}, this.get());
+    //   for(let a of PR0TECTED_ATTRIBUTES){
+    //     delete attributes[a];
+    //   }
+    //   return attributes;
     // }
   };
   User.init({
