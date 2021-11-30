@@ -27,26 +27,26 @@ exports.getAllFundraising = async (req, res) => {
   };
 
   // should create only when authenticate and have an account
-  exports.createFundraising = async (req, res) => {
-      const fundraiserObject = {
-          name: req.body.name,
-          description: req.body.description,
-          fundRaiserType: req.body.fundRaiserType,
-          category: req.body.category,
-          moneyGoal: req.body.moneyGoal,
-          actualBalance: req.body.actualBalance
-      }
+  // exports.createFundraising = async (req, res) => {
+  //     const fundraiserObject = {
+  //         name: req.body.name,
+  //         description: req.body.description,
+  //         fundRaiserType: req.body.fundRaiserType,
+  //         category: req.body.category,
+  //         moneyGoal: req.body.moneyGoal,
+  //         actualBalance: req.body.actualBalance
+  //     }
 
-      switch (key) {
-          case value:
+  //     switch (key) {
+  //         case value:
               
-              break;
+  //             break;
       
-          default:
-              break;
-      }
+  //         default:
+  //             break;
+  //     }
 
 
 
 
-  }
+  // }
