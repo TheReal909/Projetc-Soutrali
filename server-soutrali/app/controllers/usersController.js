@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 exports.getAll = async (req, res) => {
   try {
-    const allUsers = await Model.User.findAll({});
+    const allUsers = await Model.User.findAll();
     console.log("Users found !");
     return res.status(200).json(allUsers);
   } catch (error) {

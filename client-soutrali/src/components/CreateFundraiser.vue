@@ -1,32 +1,39 @@
 <template>
-  <main>
-    <div class="container">
-      <section class="backBtn">
-            <v-btn small elevation="" color="success">Back</v-btn>  
-      </section>
-      <section class="tab">
-        <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-          <v-tab ripple href="#tab-1"> Item 1 </v-tab>
-          <v-tab ripple href="#tab-2"> Item 2 </v-tab>
-        </v-tabs>
-        <v-tab-item value="tab-1">
-          <!--form here-->
-        </v-tab-item>
-        <v-tab-item value="tab-2">
-          <!--form here-->
-        </v-tab-item>
-      </section>
-      <section class="btn">
-          <v-btn small elevation="" color="success">Next</v-btn>
-      </section>
-    </div>
-  </main>
+  <v-main>
+    <v-card>
+      <v-card-title class="text-center justify-center py-6">
+        <h1 class="font-weight-bold text-h2 light-green--text">Create your fundraiser in just a few steps !</h1>
+      </v-card-title>
+
+      <v-tabs v-model="tab" background-color="transparent" color="light-green" grow>
+        <v-tab> Step 1 </v-tab>
+        <v-tab> Step 1 </v-tab>
+        <v-tab> Step 1 </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="tab">
+      <v-tab-item
+      >
+        <v-card
+          color="light-green"
+          flat
+        >
+          <v-card-text>Bonjour world</v-card-text>
+        </v-card>
+      </v-tab-item>
+    </v-tabs-items>
+      
+    </v-card>
+  </v-main>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      tab: ""
+    }
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

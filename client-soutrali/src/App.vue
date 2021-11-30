@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <v-app>
-     <main>
+     <v-main>
         <v-container>
            <router-view/>
          </v-container>
-     </main>
+     </v-main>
     </v-app>
   </div>
 </template>
