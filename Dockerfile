@@ -1,13 +1,4 @@
-# FROM node:14 AS client
-# WORKDIR /usr/src/app
-# COPY vueClient/package*.json ./
-
-# COPY ./vueClient/ ./
-# RUN npm install && npm run build
-# CMD [ "npm", "run", "serve" ]
-
-
-FROM node:14 AS server
+FROM node:14
 WORKDIR /src
 
 RUN npm install i npm@latest -g

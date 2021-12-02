@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({fundRaiser}) {
       // define association here
-      // this.hasMany(FundRaiser)
+      this.hasMany(fundRaiser, {as: 'fundraiser'})
     }
     // the exact field that i want to hide to the public, here i want to hide the id
     // toJSON(){
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    tableName: 'user',
+    tableName: 'users',
     modelName: 'User',
   });
   return User;

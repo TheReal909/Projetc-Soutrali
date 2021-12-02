@@ -28,9 +28,11 @@
           <br />
           <div>Get help for what you need in just a few step.</div>
         </div>
-        <div class="btnArea">
+        <router-link to="/fundraiserType">
+          <div class="btnArea">
           <v-btn large elevation="" color="success">Start now</v-btn>
         </div>
+        </router-link>
       </section>
       <hr />
     </v-main>

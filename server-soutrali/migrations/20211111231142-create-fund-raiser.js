@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('fundRaisers', {
+    await queryInterface.createTable('Fundraiser', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -35,7 +35,11 @@ module.exports = {
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {         // Fundraiser belongsTo User 1:1
+          model: 'Fundraiser',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -5,8 +5,8 @@
         Create your fundraiser in just a few steps !
       </h1>
     </v-card-title>
-    
-  <!-- should responsive the page -->
+
+    <!-- should responsive the page -->
     <div class="stepperLayout">
       <v-stepper v-model="e1">
         <v-stepper-header>
@@ -25,15 +25,20 @@
           <div class="container">
             <v-stepper-content step="1">
               <v-form ref="form" lazy-validation>
-                <v-text-field label="Name" required></v-text-field>
+                <div class="name">
+                  <span>Enter your name</span>
+                  <v-text-field label="First Name" required></v-text-field>
+                  <v-text-field label="Last name" required></v-text-field>
+                </div>
 
-                <v-text-field label="E-mail" required></v-text-field>
-
-                <v-select label="Item" required></v-select>
-
-                <v-text-field label="E-mail2" required></v-text-field>
-
-                <v-text-field label="E-mail3" required></v-text-field>
+                <div class="location">
+                  <span>Choose your location</span>
+                  <v-select label="Item" required></v-select>
+                </div>
+                <div class="category">
+                  <span>Select a category of Fundraising :)</span>
+                  <v-select label="Item" required></v-select>
+                </div>
               </v-form>
 
               <v-btn color="light-green" @click="e1 = 2"> Continue </v-btn>
@@ -79,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+.location, .category {
+  margin-top: 1rem;
+}
+
 .container {
   display: block;
   margin-left: auto;

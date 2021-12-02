@@ -13,21 +13,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({User}) {
       // define association here
-      this.belongsTo(User, {foreignKey : 'userId'})
+      this.belongsTo(User, {foreignKey : 'userId', as: 'user'})
     }
   };
   FundRaiser.init({
     name: {
       type:  DataTypes.STRING,
       allowNull: false
-      
     },
     description: {
       type:  DataTypes.STRING,
       allowNull: false
     },
     fundRaiserType: {
-      type: DataTypes.ENUM('ForMe', 'ForSomeoneElse', 'NonProfitOrganization'),
+      type: DataTypes.ENUM('For or someone else', 'NPO or Charity'), 
       allowNull: false
     },
     category: {
