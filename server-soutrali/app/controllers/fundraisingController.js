@@ -1,52 +1,78 @@
 const Sequelize = require("sequelize");
 const Model = require("../../models");
+// const usersController = require("./usersController");
 
- //those are small CRUD api to start with, as we continue, we will had custom functionalities
-// should 2 factors auth (phone number !)
+//those are small CRUD api to start with, as we continue, we will had custom functionalities
+// should add 2 factors auth (phone number !)
 
 exports.getAllFundraising = async (req, res) => {
+  try {
+    const all = await Model.Fundraiser.findAll(all);
+    console.log("Users found !");
+    return res.status(200).json(all);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+exports.getOneFundRaising = async (req, res) => {
+  try {
+    const uuid = req.params.uuid;
+    const one = await Model.Fundraiser.findOne({
+      where: { uuid },
+    });
+    return res.status(200).json(one);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+// should create only when authenticate and have an account
+exports.createFundraising = async (req, res) => {
+  const fundRaiserType = req.body.fundRaiserType;
+
+  if (fundRaiserType == "For me or someone else") {
     try {
-      const all = await Model.Fundraiser.findAll(all);
-      console.log("Users found !");
-      return res.status(200).json(all);
+      const selfFundraiserObject = {
+        fundRaiserName: req.body.fundRaiserName,
+        description: req.body.description,
+        fundRaiserType: fundRaiserType,
+        category: req.body.category,
+        moneyGoal: req.body.moneyGoal,
+        actualBalance: req.body.actualBalance,
+      };
+
+      const fundraiser = await Model.Fundraiser.create(selfFundraiserObject);
+      console.log("Self fundraiser created !");
+      console.log(fundraiser);
+      return res.status(200).json(fundraiser);
     } catch (error) {
+      console.log(error);
       return res.status(500).json(error);
     }
-  };
-  
-  exports.getOneFundRaising = async (req, res) => {
+  } else {
+    fundRaiserType == "NPO or Charity";
     try {
-      const uuid = req.params.uuid;
-      const one = await Model.Fundraiser.findOne({
-        where: { uuid },
-      });
-      return res.status(200).json(one);
+      const charityFundraiser = {
+        fundRaiserName: req.body.fundRaiserName,
+        description: req.body.description,
+        fundRaiserType: fundRaiserType,
+        nameOfInstitution: req.body.nameOfInstitution,
+        moneyGoal: req.body.moneyGoal,
+        actualBalance: req.body.actualBalance,
+      };
+
+      const fundraiser = await Model.Fundraiser.create(charityFundraiser);
+      console.log("Charity fundraiser created !");
+      console.log(fundraiser);
+      return res.status(200).json(fundraiser);
     } catch (error) {
+      console.log(error);
       return res.status(500).json(error);
     }
-  };
+  }
+};
 
-  // should create only when authenticate and have an account
-  // exports.createFundraising = async (req, res) => {
-  //     const fundraiserObject = {
-  //         name: req.body.name,
-  //         description: req.body.description,
-  //         fundRaiserType: req.body.fundRaiserType,
-  //         category: req.body.category,
-  //         moneyGoal: req.body.moneyGoal,
-  //         actualBalance: req.body.actualBalance
-  //     }
+// methods for createFundraiserViaHomePage
 
-  //     switch (key) {
-  //         case value:
-              
-  //             break;
-      
-  //         default:
-  //             break;
-  //     }
-
-
-
-
-  // }
+exports.createFundraiserViaHomePage = async (req, res) => {};

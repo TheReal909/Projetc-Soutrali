@@ -12,9 +12,25 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      name: {
-        allowNull: false,
+      firstName: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {msg: 'should not be null'},
+          notEmpty: {
+            msg: 'please, enter your first name'
+          }
+        }
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {msg: 'should not be null'},
+          notEmpty: {
+            msg: 'please, enter your last name'
+          }
+        }
       },
       email: {
         allowNull: false,

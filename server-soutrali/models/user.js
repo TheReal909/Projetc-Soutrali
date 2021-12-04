@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({fundRaiser}) {
+    static associate(models) {
       // define association here
-      this.hasMany(fundRaiser, {as: 'fundraiser'})
+      this.hasMany(models.Fundraiser, {as: 'fundraiser'})
     }
     // the exact field that i want to hide to the public, here i want to hide the id
     // toJSON(){
@@ -37,13 +37,23 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {msg: 'should not be null'},
         notEmpty: {
-          msg: 'please, enter a name'
+          msg: 'please, enter your first name'
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'should not be null'},
+        notEmpty: {
+          msg: 'please, enter your lastname'
         }
       }
     },

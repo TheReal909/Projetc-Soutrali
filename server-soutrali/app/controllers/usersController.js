@@ -27,16 +27,20 @@ exports.getOneUser = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const user_object = {
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
       typeOfUser: req.body.typeOfUser,
       password: req.body.password,
       password2: req.body.password2
     };
-
+    for (let att in user_object) {
+      console.log(att)
+    };
     // verify the request body , don't allow empty field
-    if (
-      !user_object.name ||
+    if(
+      !user_object.firstName ||
+      !user_object.lastName ||
       !user_object.email ||
       !user_object.typeOfUser ||
       !user_object.password ||
@@ -77,11 +81,12 @@ exports.createUser = async (req, res) => {
 
     // should hide password, id and all sensitive data
     const createdUser = {
-      name: user_object.name,
+      firstName: user_object.firstName,
+      lastName: user_object.lastName,
       email: user_object.email,
       typeOfUser: user_object.typeOfUser,
-      password: hashedPassword,
-      passwordSalt: salt,
+      password: hashedPassword, //to hide
+      passwordSalt: salt, // to hide
     };
 
     console.log(typeof createdUser.typeOfUser);
@@ -101,12 +106,10 @@ exports.createUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const userToDelete = await Model.User.destroy({
+    console.log("user deleted");
+    return await Model.User.destroy({
       where: { uuid: req.params.uuid },
-    });
-    return res.status(200).send({
-      message: 'user deleted'
-    });
+    }).status(200);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -115,7 +118,8 @@ exports.deleteUser = async (req, res) => {
 exports.editUser = async (req, res) => {
   try {
     const user_object = {
-      userName: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
       typeOfUser: req.body.typeOfUser,
     };

@@ -15,7 +15,11 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+// routes
 app.use('/users', require('./app/routes/users'));
+app.use('/fundraiser', require('./app/routes/fundraising'));
+
+
 
 //for dev , empty the database after re-run
 // db.sequelize.authenticate() for not dropping the table after rerun , instead connect to the database

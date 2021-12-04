@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   FundRaiser.init({
-    name: {
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
+
+    fundRaiserName: {
       type:  DataTypes.STRING,
       allowNull: false
     },
@@ -26,14 +31,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     fundRaiserType: {
-      type: DataTypes.ENUM('For or someone else', 'NPO or Charity'), 
+      type: DataTypes.ENUM('For me or someone else', 'NPO or Charity'), 
       allowNull: false
     },
     category: {
       type: DataTypes.ENUM('Accident & Emergency','Education', 'Health', 'Business', 'Animals', 'Religion', 'Funerals', 'Other'),
-      defaultValue: 'Choose a category',
-      allowNull: false
-    }, 
+    },
+    //should be added by admin while signing partnership.
+    nameOfInstitution: {
+      type: DataTypes.ENUM('UNICEF','RED CRUSE', 'WHATEVER'),
+    },
     moneyGoal: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -45,8 +52,8 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    tableName: 'fundraiser',
-    modelName: 'fundRaiser',
+    tableName: 'fundraisers',
+    modelName: 'Fundraiser',
   });
   return FundRaiser;
 };
