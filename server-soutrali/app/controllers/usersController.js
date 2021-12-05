@@ -38,6 +38,7 @@ exports.createUser = async (req, res) => {
       console.log(att)
     };
     // verify the request body , don't allow empty field
+    // store uuid in local storage just for now for the create.
     if(
       !user_object.firstName ||
       !user_object.lastName ||

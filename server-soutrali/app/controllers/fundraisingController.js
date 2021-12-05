@@ -37,12 +37,26 @@ exports.createFundraising = async (req, res) => {
         fundRaiserName: req.body.fundRaiserName,
         description: req.body.description,
         fundRaiserType: fundRaiserType,
+        userUuid: req.body.userUuid,
         category: req.body.category,
         moneyGoal: req.body.moneyGoal,
         actualBalance: req.body.actualBalance,
       };
+       // check if user exist in the database to allow him to create a fundraiser since there is a association
+      const user = await Model.User.findOne({where: {uuid: selfFundraiserObject.userUuid}})
 
-      const fundraiser = await Model.Fundraiser.create(selfFundraiserObject);
+      console.log(user);
+      console.log(selfFundraiserObject.fundRaiserName);
+
+      const fundraiser = await Model.Fundraiser.create({
+        fundRaiserName: req.body.fundRaiserName,
+        description: req.body.description,
+        fundRaiserType: fundRaiserType,
+        userUuid: req.body.userUuid,
+        category: req.body.category,
+        moneyGoal: req.body.moneyGoal,
+        actualBalance: req.body.actualBalance
+        , userId: user.id});
       console.log("Self fundraiser created !");
       console.log(fundraiser);
       return res.status(200).json(fundraiser);
@@ -57,12 +71,25 @@ exports.createFundraising = async (req, res) => {
         fundRaiserName: req.body.fundRaiserName,
         description: req.body.description,
         fundRaiserType: fundRaiserType,
+        userUuid: req.body.userUuid,
         nameOfInstitution: req.body.nameOfInstitution,
         moneyGoal: req.body.moneyGoal,
         actualBalance: req.body.actualBalance,
       };
+  
+      const user = await Model.User.findOne({where: {uuid: charityFundraiser.userUuid}})
+      console.log(user)
 
-      const fundraiser = await Model.Fundraiser.create(charityFundraiser);
+      // create cannot take an object i don't know why :(
+      const fundraiser = await Model.Fundraiser.create({
+        fundRaiserName: req.body.fundRaiserName,
+        description: req.body.description,
+        fundRaiserType: fundRaiserType,
+        userUuid: req.body.userUuid,
+        nameOfInstitution: req.body.nameOfInstitution,
+        moneyGoal: req.body.moneyGoal,
+        actualBalance: req.body.actualBalance
+        ,userId: user.id});
       console.log("Charity fundraiser created !");
       console.log(fundraiser);
       return res.status(200).json(fundraiser);
@@ -74,5 +101,4 @@ exports.createFundraising = async (req, res) => {
 };
 
 // methods for createFundraiserViaHomePage
-
 exports.createFundraiserViaHomePage = async (req, res) => {};

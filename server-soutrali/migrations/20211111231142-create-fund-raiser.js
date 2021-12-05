@@ -56,7 +56,7 @@ module.exports = {
         allowNull: false,
         references: {
           // Fundraiser belongsTo User 1:1
-          model: "Fundraiser",
+          model: "User",
           key: "id",
         },
       },
