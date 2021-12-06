@@ -71,21 +71,35 @@
 
 <script>
 export default {
+
   data() {
     return {
       user: {
         firstName: "",
         lastName: "",
-        email: "",
-        typeOfUser: "",
-        
-      }
+      },
+
+      fundRaiser:{
+
+      },
       e1: 1,
     };
   },
+
+  methods: {
+    // add the data to the localStorage prior to the effective create
+    registerFirstDataToLocalStorage(){
+      var userObject = {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName
+      }
+      // should use array instead.
+      localStorage.setItem('userObject', JSON.stringify(userObject));
+      localStorage.setItem('fundraiserObject')
+    }
+  }
 };
 </script>
-
 <style scoped>
 .location, .category {
   margin-top: 1rem;
