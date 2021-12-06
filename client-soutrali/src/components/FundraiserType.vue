@@ -23,7 +23,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 p {
   margin-top: 1rem;
   color: #767676;

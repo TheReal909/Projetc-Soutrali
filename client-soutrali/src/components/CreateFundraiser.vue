@@ -27,17 +27,13 @@
               <v-form ref="form" lazy-validation>
                 <div class="name">
                   <span>Enter your name</span>
-                  <v-text-field label="First Name" required></v-text-field>
+                  <v-text-field  label="First Name" required></v-text-field>
                   <v-text-field label="Last name" required></v-text-field>
                 </div>
 
-                <div class="location">
-                  <span>Choose your location</span>
-                  <v-select label="Item" required></v-select>
-                </div>
                 <div class="category">
                   <span>Select a category of Fundraising :)</span>
-                  <v-select label="Item" required></v-select>
+                  <v-select  label="Item" required></v-select>
                 </div>
               </v-form>
 
@@ -77,6 +73,13 @@
 export default {
   data() {
     return {
+      user: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        typeOfUser: "",
+        
+      }
       e1: 1,
     };
   },
