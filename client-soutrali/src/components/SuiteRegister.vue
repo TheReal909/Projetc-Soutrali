@@ -25,45 +25,37 @@
   </v-main>
 </template>
 <script>
-
-import UserService from '../services/UserServices';
+import UserService from "../services/UserServices";
 export default {
-    data() {
+  data() {
     return {
+      isRegistered: false,
+      isCreated: false,
       user: {
+        firstName: "",
+        lastName: "",
         email: "",
         typeOfUser: "",
         password: "",
-        password2: ""
+        password2: "",
+      },
+      fundraiser: {
+        fundRaiserName: "",
+        description: "",
+        category: "",
+        moneyGoal: 0,
+        actualBalance: 0,
       },
     };
   },
 
   methods: {
-    getDataFromLocalStorage(){
+    getDataFromLocalStorage() {
       // retrive missing user data from localStorage
-      // var firstName = localStorage.get;
-      // var lastName =;
-
-      // var completeUserData = {
-      //   firstName,
-      //   lastName,
-      //   email: this.user.email,
-      //   typeOfUser: this.user.typeOfUser,
-      //   password: this.user.password,
-      //   password2: this.user.password2
-      // }
-
-      // UserService.
     },
 
-    registerUser(){
-
-    }
-  }
-
-  mounted: {
-  }
+    registerUser() {},
+  },
 };
 </script>
 <style>
@@ -74,7 +66,7 @@ export default {
   width: 600px;
 }
 
-#submitBtn{
+#submitBtn {
   width: 100%;
 }
 </style>

@@ -20,7 +20,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      fundRaiserType: "",
+    }
+  },
+
+  methods: {
+    addTypeToLocalStorage(){
+      const fundraiserType = this.fundRaiserType;
+      localStorage.setItem('fundRaiserType', fundraiserType);
+    }
+  },
+};
 </script>
 
 <style scoped>
