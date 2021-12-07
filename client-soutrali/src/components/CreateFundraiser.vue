@@ -19,25 +19,63 @@
           <v-divider></v-divider>
 
           <v-stepper-step step="3"> Step 3 </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step step="3"> Confirm and create </v-stepper-step>
         </v-stepper-header>
 
         <v-stepper-items>
           <div class="container">
             <v-stepper-content step="1">
               <v-form ref="form" lazy-validation>
-                <div class="name">
-                  <span>Enter your name</span>
-                  <v-text-field label="First Name" required></v-text-field>
-                  <v-text-field label="Last name" required></v-text-field>
-                </div>
+                <v-row align="center">
+                  <v-col cols="6">
+                    <v-subheader> Give a name to your fundraiser </v-subheader>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field
+                      :rules="fundRaisernameRules"
+                      v-model="fundRaiserName"
+                      label="Fundraiser name"
+                      required
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
 
-                <div class="category">
-                  <span>Select a category of Fundraising :)</span>
-                  <v-select label="Item" required></v-select>
-                </div>
+                <v-row align="center">
+                  <v-col cols="6">
+                    <v-subheader> Select a fundraiser Category </v-subheader>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      :rules="[(v) => !!v || 'Please select a category']"
+                      label="Select a category"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+
+                <v-row align="center">
+                  <v-col cols="6">
+                    <v-subheader>
+                      Help donators understand your cause , explain it to them !
+                    </v-subheader>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-textarea
+                      v-model="description"
+                      label="Describe your fundraiser"
+                    >
+                    </v-textarea>
+                  </v-col>
+                </v-row>
               </v-form>
 
-              <v-btn color="light-green" @click="e1 = 2"> Continue </v-btn>
+              <div class="stepBtn">
+                <v-btn color="light-green" @click="e1 = 2"> Continue </v-btn>
+              </div>
             </v-stepper-content>
           </div>
           <v-stepper-content step="2">
@@ -59,72 +97,67 @@
           </v-stepper-content>
           <v-stepper-content step="3">
             <div class="registerForm">
-              <form>
-                <h2 class="text-center text-primary">Sign Up</h2>
-                <hr />
+              <h2>
+                In order to proceed, you should register first for security
+                check
+              </h2>
+              <br />
+              <v-form ref="form" class="mx-2" lazy-validation>
+                <v-row>
+                  <v-col cols="6">
+                    <v-text-field
+                      v-model="firstname"
+                      :rules="nameRules"
+                      label="First Name"
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field
+                      v-model="lastname"
+                      :rules="nameRules"
+                      label="Last Name"
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
 
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="username"
-                    placeholder="Username"
-                  />
-                  <div class="invalid-feedback">Please enter a username</div>
-                </div>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="email"
+                      :rules="emailRules"
+                      label="Email"
+                      required
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
 
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Known as"
-                    formControlName="knownAs"
-                  />
-                  <div class="invalid-feedback">Known as is required</div>
-                </div>
+                <v-row>
+                  <v-col cols="6">
+                    <v-text-field
+                      v-model="password"
+                      type="password"
+                      :rules="passwordRules"
+                      label="Password"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
 
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="City"
-                    formControlName="city"
-                  />
-                  <div class="invalid-feedback">City is required</div>
-                </div>
-
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Country"
-                    formControlName="country"
-                  />
-                  <div class="invalid-feedback">Country is required</div>
-                </div>
-
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    formControlName="password"
-                    placeholder="Password"
-                  />
-                  <div class="invalid-feedback">Password is required</div>
-                  <div class="invalid-feedback">
-                    Password should be at least 4 characters
-                  </div>
-                  <div class="invalid-feedback">
-                    Password cannot exceed 8 characters
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    formControlName="confirmPassword"
-                    placeholder="Confirm Password"
-                  />
-                </div>
-              </form>
+                <v-row>
+                  <v-col cols="6">
+                    <v-text-field
+                      v-model="password"
+                      type="password"
+                      :rules="confirmPasswordRules"
+                      label="Confirm your password"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-form>
             </div>
 
             <v-btn color="light-green" @click="e1 = 1"> Register user </v-btn>
@@ -137,11 +170,35 @@
 </template>
 
 <script>
+// import UserService from "../services/UserServices";
 export default {
   data() {
     return {
       isRegistered: false,
       isCreated: false,
+      nameRules: [
+        (v) => !!v || "Name is required",
+        (v) => (v && v.length <= 30) || "Name must be less than 10 characters",
+      ],
+      fundRaisernameRules: [(v) => !!v || "Name is required"],
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) =>
+          /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            v
+          ) || "E-mail must be valid",
+      ],
+      passwordRules: [
+        (v) => !!v || "Please type your password.",
+        (v) => (v && v.length >= 6) || "minimum 6 characters",
+      ],
+      confirmPasswordRules: [
+        (value) => !!value || "please enter the confirm password",
+        (value) =>
+          value === this.password ||
+          "The password confirmation does not match.",
+      ],
+
       user: {
         firstName: "",
         lastName: "",
@@ -162,6 +219,11 @@ export default {
   },
 
   methods: {
+
+    createFundraiser(){
+      // const fundraiserType = localStorage.getItem('fundRaiserType');
+    }
+
     // add the data to the localStorage prior to the effective create
     // registerFirstDataToLocalStorage() {
     //   var userObject = {
@@ -197,5 +259,9 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 800px;
+}
+
+.stepBtn {
+  margin-top: 2rem;
 }
 </style>

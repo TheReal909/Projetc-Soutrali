@@ -30,7 +30,8 @@ export default {
   methods: {
     addTypeToLocalStorage(){
       const fundraiserType = this.fundRaiserType;
-      localStorage.setItem('fundRaiserType', fundraiserType);
+      localStorage.setItem('fundRaiserType', JSON.stringify(fundraiserType));
+      console.log(localStorage.getItem('fundRaiserType'));
     }
   },
 };
