@@ -219,10 +219,14 @@ export default {
   },
 
   methods: {
+    //check validation
+    submitForm() {
+      this.$refs.form.validate();
+    },
 
-    createFundraiser(){
+    createFundraiser() {
       // const fundraiserType = localStorage.getItem('fundRaiserType');
-    }
+    },
 
     // add the data to the localStorage prior to the effective create
     // registerFirstDataToLocalStorage() {
