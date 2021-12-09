@@ -36,7 +36,7 @@
                   <v-col cols="6">
                     <v-text-field
                       :rules="fundRaisernameRules"
-                      v-model="fundRaiserName"
+                      v-model="fundraiser.fundRaiserName"
                       label="Fundraiser name"
                       required
                     >
@@ -44,7 +44,20 @@
                   </v-col>
                 </v-row>
 
-                <v-row align="center">
+                <v-row align="center" v-if="fundraiser.fundraiserType=='Charity'">
+                  <v-col cols="6">
+                    <v-subheader> Select the NGO you raise money for </v-subheader>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      :rules="[(v) => !!v || 'Please select a category']"
+                      label="Select an NGO"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+
+                <v-row align="center" v-if="fundraiser.fundraiserType=='SelfFundraiser'">
                   <v-col cols="6">
                     <v-subheader> Select a fundraiser Category </v-subheader>
                   </v-col>
@@ -65,7 +78,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-textarea
-                      v-model="description"
+                      v-model="fundraiser.description"
                       label="Describe your fundraiser"
                     >
                     </v-textarea>
@@ -85,6 +98,7 @@
                 <div class="goal">
                   <span>How much do you need for your fundraiser</span>
                   <v-text-field
+                  v-model="fundraiser.moneyGoal"
                     label="Enter a goal amount $"
                     required
                   ></v-text-field>
@@ -106,7 +120,7 @@
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="firstname"
+                      v-model="user.firstname"
                       :rules="nameRules"
                       label="First Name"
                     >
@@ -114,7 +128,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="lastname"
+                      v-model="user.lastname"
                       :rules="nameRules"
                       label="Last Name"
                     >
@@ -125,7 +139,7 @@
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
-                      v-model="email"
+                      v-model="user.email"
                       :rules="emailRules"
                       label="Email"
                       required
@@ -137,7 +151,7 @@
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="password"
+                      v-model="user.password"
                       type="password"
                       :rules="passwordRules"
                       label="Password"
@@ -149,7 +163,7 @@
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="password"
+                      v-model="user.password2"
                       type="password"
                       :rules="confirmPasswordRules"
                       label="Confirm your password"
@@ -210,12 +224,18 @@ export default {
       fundraiser: {
         fundRaiserName: "",
         description: "",
+        fundraiserType: "",
         category: "",
         moneyGoal: 0,
         actualBalance: 0,
       },
       e1: 1,
     };
+  },
+
+  created(){
+    this.fundraiser.fundraiserType = this.$route.params.fundRaiserType;
+    console.log(this.fundraiser.fundraiserType);
   },
 
   methods: {

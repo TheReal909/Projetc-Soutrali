@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     fundRaiserType: {
-      type: DataTypes.ENUM('For me or someone else', 'NPO or Charity'), 
+      type: DataTypes.ENUM('SelfFundraiser', 'Charity'), 
       allowNull: false
     },
     category: {

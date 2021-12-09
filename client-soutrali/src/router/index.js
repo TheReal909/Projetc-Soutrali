@@ -10,9 +10,10 @@ Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
     {
-      path: '/createFundRaiser',
+      path: '/createFundRaiser/:fundRaiserType',
       component: CreateFund,
-      name: 'CreateFundRaiser'
+      name: 'CreateFundRaiser',
+      params: true
     },
     {
       path: '/',

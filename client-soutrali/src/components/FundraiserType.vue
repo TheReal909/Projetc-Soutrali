@@ -2,11 +2,15 @@
   <v-main>
     <header><h1>Hi ! Tell us who are you fundraising for :)</h1></header>
     <div class="buttons">
-      <a class="forMeBtn">
+      <router-link :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'SelfFundraiser'} }">
+        <a class="forMeBtn">
         <h3>For me</h3>
         <p>The help you receive will directly be given to you.</p>
       </a>
-      <a class="forElseBtn">
+      </router-link>
+
+      <router-link :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'Charity'} }">
+        <a class="forElseBtn">
         <div class="content">
           <h3>For charity</h3>
           <p>
@@ -15,6 +19,7 @@
           </p>
         </div>
       </a>
+      </router-link>
     </div>
   </v-main>
 </template>
@@ -25,15 +30,7 @@ export default {
     return {
       fundRaiserType: "",
     }
-  },
-
-  methods: {
-    addTypeToLocalStorage(){
-      const fundraiserType = this.fundRaiserType;
-      localStorage.setItem('fundRaiserType', JSON.stringify(fundraiserType));
-      console.log(localStorage.getItem('fundRaiserType'));
-    }
-  },
+  }
 };
 </script>
 
