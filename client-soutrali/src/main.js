@@ -8,7 +8,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-new Vue({
+window.vapp = new Vue({
   vuetify,
   router,
   render: h => h(App)

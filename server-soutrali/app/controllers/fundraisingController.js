@@ -4,7 +4,6 @@ const Model = require("../../models");
 
 //those are small CRUD api to start with, as we continue, we will had custom functionalities
 // should add 2 factors auth (phone number !)
-
 exports.getAllFundraising = async (req, res) => {
   try {
     const all = await Model.Fundraiser.findAll(all);

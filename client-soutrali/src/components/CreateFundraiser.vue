@@ -63,10 +63,12 @@
                   </v-col>
 
                   <v-col cols="6">
-                    <v-select
+                    <v-select 
                       :rules="[(v) => !!v || 'Please select a category']"
                       label="Select a category"
-                    ></v-select>
+                      :items="categories"
+                    >
+                    </v-select>
                   </v-col>
                 </v-row>
 
@@ -87,7 +89,7 @@
               </v-form>
 
               <div class="stepBtn">
-                <v-btn color="light-green" @click="e1 = 2;submitForm()"> Continue </v-btn>
+                <v-btn color="light-green" @click="submitForm()"> Continue </v-btn>
               </div>
             </v-stepper-content>
           </div>
@@ -188,6 +190,7 @@ import UserService from "../services/UserServices";
 export default {
   data() {
     return {
+      categories: ['Accident & Emergency','Education', 'Health', 'Business', 'Animals', 'Religion', 'Funerals', 'Other'],
       isRegistered: false,
       isCreated: false,
       nameRules: [
@@ -241,7 +244,9 @@ export default {
   methods: {
     //check validation
     submitForm() {
-      this.$refs.form.validate();
+      if(this.$refs.form.validate()){
+        this.e1 = 2
+      }
     },
 
     registerUser() {
