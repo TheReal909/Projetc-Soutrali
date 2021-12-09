@@ -87,7 +87,7 @@
               </v-form>
 
               <div class="stepBtn">
-                <v-btn color="light-green" @click="e1 = 2"> Continue </v-btn>
+                <v-btn color="light-green" @click="e1 = 2;submitForm()"> Continue </v-btn>
               </div>
             </v-stepper-content>
           </div>
@@ -174,7 +174,7 @@
               </v-form>
             </div>
 
-            <v-btn color="light-green" @click="e1 = 1"> Register user </v-btn>
+            <v-btn color="light-green" @click="e1 = 1;"> Register user </v-btn>
             <v-btn color="primary" @click="e1 = 2" text> Previous </v-btn>
           </v-stepper-content>
         </v-stepper-items>
@@ -184,7 +184,7 @@
 </template>
 
 <script>
-// import UserService from "../services/UserServices";
+import UserService from "../services/UserServices";
 export default {
   data() {
     return {
@@ -244,9 +244,28 @@ export default {
       this.$refs.form.validate();
     },
 
-    createFundraiser() {
-      // const fundraiserType = localStorage.getItem('fundRaiserType');
+    registerUser() {
+      var userData = {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        email: this.user.email,
+        typeOfUser: this.user.typeOfUser,
+        password: this.user.password,
+        password2: this.user.password2,
+      };
+      if(this.$refs.form.validate()){
+        UserService.createUser(userData)
+        .then(res =>{
+          console.log(res.data);
+        }).catch(err => {
+          console.log(err);
+        });
+      }
     },
+    
+    launchFundraiser(){
+
+    }
 
     // add the data to the localStorage prior to the effective create
     // registerFirstDataToLocalStorage() {
