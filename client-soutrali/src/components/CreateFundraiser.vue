@@ -8,6 +8,9 @@
 
     <!-- should responsive the page -->
     <div class="stepperLayout">
+      <v-snackbar v-model="notif" :timeout="notifTimeOut">{{
+        notifText
+      }}</v-snackbar>
       <v-stepper v-model="e1">
         <v-stepper-header>
           <v-stepper-step :complete="e1 > 1" step="1"> Step 1 </v-stepper-step>
@@ -22,13 +25,13 @@
 
           <v-divider></v-divider>
 
-          <v-stepper-step step="3"> Confirm and create </v-stepper-step>
+          <v-stepper-step step="4"> Confirm and create </v-stepper-step>
         </v-stepper-header>
 
         <v-stepper-items>
           <div class="container">
             <v-stepper-content step="1">
-              <v-form ref="form" lazy-validation>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-row align="center">
                   <v-col cols="6">
                     <v-subheader> Give a name to your fundraiser </v-subheader>
@@ -44,7 +47,10 @@
                   </v-col>
                 </v-row>
 
-                <v-row align="center" v-if="fundraiser.fundraiserType=='Charity'">
+                <v-row
+                  align="center"
+                  v-if="fundraiser.fundraiserType == 'Charity'"
+                >
                   <v-col cols="6">
                     <v-subheader> Select the Charity </v-subheader>
                   </v-col>
@@ -57,13 +63,16 @@
                   </v-col>
                 </v-row>
 
-                <v-row align="center" v-if="fundraiser.fundraiserType=='SelfFundraiser'">
+                <v-row
+                  align="center"
+                  v-if="fundraiser.fundraiserType == 'SelfFundraiser'"
+                >
                   <v-col cols="6">
                     <v-subheader> Select a fundraiser Category </v-subheader>
                   </v-col>
 
                   <v-col cols="6">
-                    <v-select 
+                    <v-select
                       :rules="[(v) => !!v || 'Please select a category']"
                       label="Select a category"
                       :items="categories"
@@ -89,18 +98,25 @@
               </v-form>
 
               <div class="stepBtn">
-                <v-btn color="light-green" @click="submitForm()"> Continue </v-btn>
+                <v-btn
+                  :disabled="!valid"
+                  color="light-green"
+                  @click="nextStep1()"
+                >
+                  Continue
+                </v-btn>
               </div>
             </v-stepper-content>
           </div>
           <v-stepper-content step="2">
             <div class="container">
               <h1>Set a goal for your fundraiser</h1>
-              <v-form ref="form" lazy-validation>
+              <v-form v-model="valid" ref="form" lazy-validation>
                 <div class="goal">
                   <span>How much do you need for your fundraiser</span>
                   <v-text-field
-                  v-model="fundraiser.moneyGoal"
+                    :rules="[(v) => v >= 100 || 'Start with at least 100$']"
+                    v-model="fundraiser.moneyGoal"
                     label="Enter a goal amount $"
                     required
                   ></v-text-field>
@@ -108,7 +124,7 @@
               </v-form>
             </div>
 
-            <v-btn color="light-green" @click="e1 = 3"> Continue </v-btn>
+            <v-btn :disabled="!valid" color="light-green" @click="nextStep2()"> Continue </v-btn>
             <v-btn color="primary" @click="e1 = 1" text> Previous </v-btn>
           </v-stepper-content>
           <v-stepper-content step="3">
@@ -118,7 +134,7 @@
                 check
               </h2>
               <br />
-              <v-form ref="form" class="mx-2" lazy-validation>
+              <v-form v-model="valid" ref="form" class="mx-2" lazy-validation>
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
@@ -176,7 +192,7 @@
               </v-form>
             </div>
 
-            <v-btn color="light-green" @click="e1 = 1;"> Register user </v-btn>
+            <v-btn :disabled="!valid" color="light-green" @click="registerUser()"> Register user </v-btn>
             <v-btn color="primary" @click="e1 = 2" text> Previous </v-btn>
           </v-stepper-content>
         </v-stepper-items>
@@ -190,12 +206,25 @@ import UserService from "../services/UserServices";
 export default {
   data() {
     return {
-      categories: ['Accident & Emergency','Education', 'Health', 'Business', 'Animals', 'Religion', 'Funerals', 'Other'],
+      notif: false,
+      notifTimeOut: 2000,
+      valid: true,
+      notifText: "",
+      categories: [
+        "Accident & Emergency",
+        "Education",
+        "Health",
+        "Business",
+        "Animals",
+        "Religion",
+        "Funerals",
+        "Other",
+      ],
       isRegistered: false,
       isCreated: false,
       nameRules: [
         (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 30) || "Name must be less than 10 characters",
+        (v) => (v && v.length <= 20) || "Name must be less than 10 characters",
       ],
       fundRaisernameRules: [(v) => !!v || "Name is required"],
       emailRules: [
@@ -212,7 +241,7 @@ export default {
       confirmPasswordRules: [
         (value) => !!value || "please enter the confirm password",
         (value) =>
-          value === this.password ||
+          value === this.user.password ||
           "The password confirmation does not match.",
       ],
 
@@ -236,20 +265,25 @@ export default {
     };
   },
 
-  created(){
+  created() {
     this.fundraiser.fundraiserType = this.$route.params.fundRaiserType;
     console.log(this.fundraiser.fundraiserType);
   },
 
   methods: {
     //check validation
-    submitForm() {
-      if(this.$refs.form.validate()){
-        this.e1 = 2
-      }
+    nextStep1() {
+      this.$refs.form.validate();
+      this.e1 = 2;
+    },
+
+     nextStep2() {
+      this.$refs.form.validate();
+      this.e1 = 3;
     },
 
     registerUser() {
+      console.log("register start..")
       var userData = {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
@@ -258,19 +292,22 @@ export default {
         password: this.user.password,
         password2: this.user.password2,
       };
-      if(this.$refs.form.validate()){
+      if (this.$refs.form.validate()) {
         UserService.createUser(userData)
-        .then(res =>{
-          console.log(res.data);
-        }).catch(err => {
-          console.log(err);
-        });
+          .then((res) => {
+            console.log(res.data);
+            this.notifText = "Register with success"
+            this.notif = true;
+          })
+          .catch((err) => {
+            this.notifText = "Register failed " + err;
+            this.notif = true;
+            console.log(err);
+          });
       }
     },
-    
-    launchFundraiser(){
 
-    }
+    launchFundraiser() {},
 
     // add the data to the localStorage prior to the effective create
     // registerFirstDataToLocalStorage() {
