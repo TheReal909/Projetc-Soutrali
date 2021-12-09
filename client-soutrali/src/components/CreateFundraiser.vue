@@ -46,13 +46,13 @@
 
                 <v-row align="center" v-if="fundraiser.fundraiserType=='Charity'">
                   <v-col cols="6">
-                    <v-subheader> Select the NGO you raise money for </v-subheader>
+                    <v-subheader> Select the Charity </v-subheader>
                   </v-col>
 
                   <v-col cols="6">
                     <v-select
-                      :rules="[(v) => !!v || 'Please select a category']"
-                      label="Select an NGO"
+                      :rules="[(v) => !!v || 'Please select a charity label']"
+                      label="Select a Charity label"
                     ></v-select>
                   </v-col>
                 </v-row>
