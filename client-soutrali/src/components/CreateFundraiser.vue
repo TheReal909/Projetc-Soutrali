@@ -31,7 +31,7 @@
         <v-stepper-items>
           <div class="container">
             <v-stepper-content step="1">
-              <v-form ref="form" v-model="valid" lazy-validation>
+              <v-form ref="form1" v-model="valid" lazy-validation>
                 <v-row align="center">
                   <v-col cols="6">
                     <v-subheader> Give a name to your fundraiser </v-subheader>
@@ -49,7 +49,7 @@
 
                 <v-row
                   align="center"
-                  v-if="fundraiser.fundraiserType == 'Charity'"
+                  v-if="fundraiser.fundRaiserType == 'Charity'"
                 >
                   <v-col cols="6">
                     <v-subheader> Select the Charity </v-subheader>
@@ -59,13 +59,15 @@
                     <v-select
                       :rules="[(v) => !!v || 'Please select a charity label']"
                       label="Select a Charity label"
+                      v-model="fundraiser.nameOfInstitution"
+                      :items="nameOfInstitution"
                     ></v-select>
                   </v-col>
                 </v-row>
 
                 <v-row
                   align="center"
-                  v-if="fundraiser.fundraiserType == 'SelfFundraiser'"
+                  v-if="fundraiser.fundRaiserType == 'SelfFundraiser'"
                 >
                   <v-col cols="6">
                     <v-subheader> Select a fundraiser Category </v-subheader>
@@ -73,6 +75,7 @@
 
                   <v-col cols="6">
                     <v-select
+                      v-model="fundraiser.category"
                       :rules="[(v) => !!v || 'Please select a category']"
                       label="Select a category"
                       :items="categories"
@@ -111,7 +114,7 @@
           <v-stepper-content step="2">
             <div class="container">
               <h1>Set a goal for your fundraiser</h1>
-              <v-form v-model="valid" ref="form" lazy-validation>
+              <v-form v-model="valid" ref="form2" lazy-validation>
                 <div class="goal">
                   <span>How much do you need for your fundraiser</span>
                   <v-text-field
@@ -124,7 +127,9 @@
               </v-form>
             </div>
 
-            <v-btn :disabled="!valid" color="light-green" @click="nextStep2()"> Continue </v-btn>
+            <v-btn :disabled="!valid" color="light-green" @click="nextStep2()">
+              Continue
+            </v-btn>
             <v-btn color="primary" @click="e1 = 1" text> Previous </v-btn>
           </v-stepper-content>
           <v-stepper-content step="3">
@@ -134,11 +139,16 @@
                 check
               </h2>
               <br />
-              <v-form v-model="valid" ref="form" class="mx-2" lazy-validation>
+              <v-form
+                v-model="valid"
+                ref="registerForm"
+                class="mx-2"
+                lazy-validation
+              >
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="user.firstname"
+                      v-model="user.firstName"
                       :rules="nameRules"
                       label="First Name"
                     >
@@ -146,7 +156,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="user.lastname"
+                      v-model="user.lastName"
                       :rules="nameRules"
                       label="Last Name"
                     >
@@ -155,7 +165,7 @@
                 </v-row>
 
                 <v-row>
-                  <v-col cols="12">
+                  <v-col cols="6">
                     <v-text-field
                       v-model="user.email"
                       :rules="emailRules"
@@ -163,6 +173,16 @@
                       required
                     >
                     </v-text-field>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      :rules="[(v) => !!v || 'Please select a category']"
+                      label="Select a category"
+                      v-model="user.typeOfUser"
+                      :items="typeOfUser"
+                    >
+                    </v-select>
                   </v-col>
                 </v-row>
 
@@ -192,8 +212,28 @@
               </v-form>
             </div>
 
-            <v-btn :disabled="!valid" color="light-green" @click="registerUser()"> Register user </v-btn>
+            <v-btn
+              :disabled="!valid"
+              color="light-green"
+              @click="registerUser()"
+            >
+              Register user
+            </v-btn>
             <v-btn color="primary" @click="e1 = 2" text> Previous </v-btn>
+          </v-stepper-content>
+          <v-stepper-content step="4">
+            <section class="create">
+              <h2>Here we go ! You can now launch your fundraiser</h2>
+              <br />
+
+              <v-btn
+                small
+                @click="launchFundraiser()"
+                elevation=""
+                color="success"
+                >LAUNCH IT</v-btn
+              >
+            </section>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -203,11 +243,13 @@
 
 <script>
 import UserService from "../services/UserServices";
+import FundraiserService from "../services/FundraiserServices";
 export default {
   data() {
     return {
+      photoUrl: "",
       notif: false,
-      notifTimeOut: 2000,
+      notifTimeOut: 5000,
       valid: true,
       notifText: "",
       categories: [
@@ -220,6 +262,8 @@ export default {
         "Funerals",
         "Other",
       ],
+      typeOfUser: ["Individual", "Organization"],
+      nameOfInstitution: ["UNICEF", "RED CRUISE", "WHATEVER"],
       isRegistered: false,
       isCreated: false,
       nameRules: [
@@ -256,8 +300,9 @@ export default {
       fundraiser: {
         fundRaiserName: "",
         description: "",
-        fundraiserType: "",
+        fundRaiserType: "",
         category: "",
+        nameOfInstitution: "",
         moneyGoal: 0,
         actualBalance: 0,
       },
@@ -266,24 +311,25 @@ export default {
   },
 
   created() {
-    this.fundraiser.fundraiserType = this.$route.params.fundRaiserType;
-    console.log(this.fundraiser.fundraiserType);
+    this.fundraiser.fundRaiserType = this.$route.params.fundRaiserType;
   },
 
   methods: {
     //check validation
     nextStep1() {
-      this.$refs.form.validate();
-      this.e1 = 2;
+      if (this.$refs.form1.validate()) {
+        this.e1 = 2;
+      }
     },
 
-     nextStep2() {
-      this.$refs.form.validate();
-      this.e1 = 3;
+    nextStep2() {
+      if (this.$refs.form2.validate()) {
+        this.e1 = 3;
+      }
     },
 
     registerUser() {
-      console.log("register start..")
+      console.log("register start..");
       var userData = {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
@@ -292,12 +338,13 @@ export default {
         password: this.user.password,
         password2: this.user.password2,
       };
-      if (this.$refs.form.validate()) {
+      if (this.$refs.registerForm.validate()) {
         UserService.createUser(userData)
           .then((res) => {
-            console.log(res.data);
-            this.notifText = "Register with success"
+            localStorage.setItem("userUuid", res.uuid);
+            this.notifText = "Register with success";
             this.notif = true;
+            this.e1 = 4;
           })
           .catch((err) => {
             this.notifText = "Register failed " + err;
@@ -307,8 +354,50 @@ export default {
       }
     },
 
-    launchFundraiser() {},
+    generateRandomImage() {
+      var imageArray = new Array();
+      imageArray[0] =
+        "https://media.istockphoto.com/photos/put-more-in-get-more-out-picture-id1291318636?s=612x612";
+      imageArray[1] =
+        "https://cdn.pixabay.com/photo/2016/12/19/10/16/hands-1917895_960_720.png";
+      imageArray[2] =
+        "https://media.istockphoto.com/photos/stack-of-hands-showing-unity-picture-id625736338?s=612x612";
 
+      var indexImage = Math.floor(Math.random() * imageArray.length);
+
+      return imageArray[indexImage];
+    },
+
+    launchFundraiser() {
+      const userUuid = localStorage.getItem("userUuid");
+      console.log(this.fundraiser.fundraiserType);
+      var fundraiser = {
+        fundRaiserName: this.fundraiser.fundRaiserName,
+        description: this.fundraiser.description,
+        fundRaiserType: this.$route.params.fundRaiserType,
+        category: this.fundraiser.category,
+        userUuid: userUuid,
+        nameOfInstitution: this.fundraiser.nameOfInstitution,
+        moneyGoal: this.fundraiser.moneyGoal,
+        actualBalance: this.fundraiser.actualBalance,
+      };
+
+      console.log(fundraiser);
+
+      FundraiserService.createFundraiser(fundraiser)
+        .then((res) => {
+          console.log(res);
+          this.notifText = "You have launched your fundraiser campaign !";
+          this.notif = true;
+          this.photoUrl = this.generateRandomImage();
+          console.log(this.photoUrl);
+        })
+        .catch((err) => {
+          this.notif = true;
+          this.notifText = "Oups , something went wrong " + err;
+          console.log(err);
+        });
+    },
     // add the data to the localStorage prior to the effective create
     // registerFirstDataToLocalStorage() {
     //   var userObject = {

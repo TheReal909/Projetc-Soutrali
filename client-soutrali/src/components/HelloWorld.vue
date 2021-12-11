@@ -9,10 +9,8 @@
         <ul class="navLinks">
           <li class="nav-item"><a href="#">How it works?</a></li>
           <li class="nav-item"><a href="#">Sign in</a></li>
-          <router-link to="/createFundRaiser">
-            <v-btn v-r class="mt-2" small color="success"
-              >Start now</v-btn
-            >
+          <router-link to="/fundraiserType">
+            <v-btn v-r class="mt-2" small color="success">Start now</v-btn>
           </router-link>
         </ul>
       </nav>
@@ -30,11 +28,26 @@
         </div>
         <router-link to="/fundraiserType">
           <div class="btnArea">
-          <v-btn large elevation="" color="success">Start now</v-btn>
-        </div>
+            <v-btn large elevation="" color="success">Start now</v-btn>
+          </div>
         </router-link>
       </section>
       <hr />
+
+      <div class="fundraiserContainer">
+        <v-row>
+          <v-chip class="float-left mt-2" color="success" text-color="white">
+            launched fundraisers
+          </v-chip>
+        </v-row>
+
+        <v-row>
+          <v-col cols="4">
+            <!-- add the fundraiser Card component here  -->
+            <fundraiser-card />
+          </v-col>
+        </v-row>
+      </div>
     </v-main>
 
     <v-footer>
@@ -45,8 +58,32 @@
   </v-app>
 </template>
 <script>
+import FundraiserServices from "../services/FundraiserServices";
+import FundraiserCard from "./FundraiserCard.vue";
 export default {
+  components: { FundraiserCard },
   name: "HelloWorld",
+  data() {
+    return {
+      fundraisers: []
+    };
+  },
+  created(){
+    this.getFundraisers();
+  },
+  methods: {
+    getFundraisers() {
+      FundraiserServices.getAllFundraiser()
+        .then((res) => {
+          this.fundraisers = res;
+          console.log(res);
+          console.log(this.fundraisers);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 
@@ -63,6 +100,10 @@ hr {
   clear: left;
   margin: 60px auto 0;
   width: 80%;
+}
+
+.fundraiserContainer {
+  margin-top: 2rem;
 }
 
 .navLogo {
@@ -87,6 +128,6 @@ hr {
   display: inline-block;
   padding: 10px 15px;
   text-decoration: none;
-  color: #ddd;
+  color: black;
 }
 </style>

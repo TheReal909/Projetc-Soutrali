@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     typeOfUser: {
-      type: DataTypes.ENUM('Individual', 'Organisation'),
+      type: DataTypes.ENUM('Individual', 'Organization'),
       allowNull: false
     },
     password:{

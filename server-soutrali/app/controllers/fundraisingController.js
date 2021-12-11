@@ -6,7 +6,7 @@ const Model = require("../../models");
 // should add 2 factors auth (phone number !)
 exports.getAllFundraising = async (req, res) => {
   try {
-    const all = await Model.Fundraiser.findAll(all);
+    const all = await Model.Fundraiser.findAll();
     console.log("Users found !");
     return res.status(200).json(all);
   } catch (error) {
@@ -30,7 +30,7 @@ exports.getOneFundRaising = async (req, res) => {
 exports.createFundraising = async (req, res) => {
   const fundRaiserType = req.body.fundRaiserType;
 
-  if (fundRaiserType == "For me or someone else") {
+  if (fundRaiserType == "SelfFundraiser") {
     try {
       const selfFundraiserObject = {
         fundRaiserName: req.body.fundRaiserName,
@@ -41,7 +41,7 @@ exports.createFundraising = async (req, res) => {
         moneyGoal: req.body.moneyGoal,
         actualBalance: req.body.actualBalance,
       };
-       // check if user exist in the database to allow him to create a fundraiser since there is a association
+       // check if user exist in the database to allow him to create a fundraiser since there is an association
       const user = await Model.User.findOne({where: {uuid: selfFundraiserObject.userUuid}})
 
       console.log(user);
@@ -64,7 +64,7 @@ exports.createFundraising = async (req, res) => {
       return res.status(500).json(error);
     }
   } else {
-    fundRaiserType == "NPO or Charity";
+    fundRaiserType == "Charity";
     try {
       const charityFundraiser = {
         fundRaiserName: req.body.fundRaiserName,

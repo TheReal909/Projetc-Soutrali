@@ -22,7 +22,7 @@ module.exports = {
       },
       fundRaiserType: {
         allowNull: false,
-        type: DataTypes.ENUM("ForMe", "ForSomeoneElse"),
+        type: DataTypes.ENUM("SelfFundraiser", "Charity"),
       },
       category: {
         type: DataTypes.ENUM(
