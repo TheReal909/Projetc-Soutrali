@@ -37,6 +37,7 @@ exports.createFundraising = async (req, res) => {
         description: req.body.description,
         fundRaiserType: fundRaiserType,
         userUuid: req.body.userUuid,
+        photoUrl: req.body.photoUrl,
         category: req.body.category,
         moneyGoal: req.body.moneyGoal,
         actualBalance: req.body.actualBalance,

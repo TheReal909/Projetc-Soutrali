@@ -34,22 +34,78 @@
       </section>
       <hr />
 
-      <div class="fundraiserContainer">
-        <v-row>
-          <v-chip class="float-left mt-2" color="success" text-color="white">
-            launched fundraisers
-          </v-chip>
-        </v-row>
+      <section class="fundraiser-list">
+        <v-container
+          v-if="this.fundraisers.length == 0 && this.books.length == 0"
+        >
+          <h1>Sorry, no fundraiser yet :(</h1>
+        </v-container>
 
-        <v-row>
-          <v-col cols="4">
-            <!-- add the fundraiser Card component here  -->
-            <fundraiser-card />
-          </v-col>
-        </v-row>
-      </div>
+        <v-container v-else class="mt-2" fluid grid-list-md>
+          <h2 class="mt-2">Launched Fundraisers</h2>
+          <v-layout row wrap justify-center>
+            <v-flex v-for="book in books" :key="book.title" xs12 md6 lg3>
+              <v-card
+                style="margin: 1rem; background-color: transparent"
+                min-width="135px"
+                class="mx-auto"
+                max-width="300"
+              >
+                <v-img
+                  class="white--text align-end"
+                  height="200px"
+                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                >
+                  <v-card-title>{{ book.title }}</v-card-title>
+                </v-img>
+
+                <v-card-subtitle class="pb-0"> Number 10 </v-card-subtitle>
+
+                <v-card-text class="text--primary">
+                  <div>Whitehaven Beach</div>
+
+                  <div>Whitsunday Island, Whitsunday Islands</div>
+                </v-card-text>
+
+                <v-card-actions class="justify-center">
+                  <v-btn color="success"> Donate </v-btn>
+
+                  <v-btn color="orange">See Details</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </section>
+      <hr />
+
+      <section class="mt-2 mb-4 informations">
+         <h1 class="mb-2">Why using Soutrali ?</h1>
+        <v-container>
+          <v-layout row wrap justify-center>
+            <v-flex
+              xs12
+              md6
+              lg3
+              v-for="message in messages"
+              :key="message.content"
+            >
+              <v-card flat>
+                <v-card-text>
+                  <p class="text-h6 text--primary">{{ message.name }}</p>
+                  <p>{{ message.content }}</p>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+          <v-row>
+            <v-btn class="justify-center mt-4" large elevation="" color="success"
+              >START NOW</v-btn
+            >
+          </v-row>
+        </v-container>
+      </section>
     </v-main>
-
     <v-footer>
       <v-card-text class="dark--text">
         {{ new Date().getFullYear() }} — <strong>Soutrali</strong>
@@ -59,17 +115,42 @@
 </template>
 <script>
 import FundraiserServices from "../services/FundraiserServices";
-import FundraiserCard from "./FundraiserCard.vue";
+// import FundraiserCard from "./FundraiserCard.vue";
 export default {
-  components: { FundraiserCard },
+  // components: { FundraiserCard },
   name: "HelloWorld",
   data() {
     return {
-      fundraisers: []
+      fundraisers: [],
+      books: [
+        { title: "book1", rating: 3, year: "2016" },
+        { title: "book2 with very very long text", rating: 5, year: "2016" },
+        { title: "book3", rating: 2.5, year: "2016" },
+      ],
+
+      messages: [
+        {
+          name: "Simple",
+          content:
+            "You can personalize and share your Soutrali campaign in just a few minutes.",
+        },
+        {
+          name: "Secured",
+          content:
+            "Our Trust & Safety team works around the clock to protect against fraud.",
+        },
+        {
+          name: "Social Enpowered",
+          content:
+            "Harness the power of social media to spread your story and get more support !",
+        },
+      ],
     };
   },
-  created(){
+  created() {
     this.getFundraisers();
+    console.log(this.fundraisers.length);
+    console.log(this.books.length);
   },
   methods: {
     getFundraisers() {

@@ -247,7 +247,6 @@ import FundraiserService from "../services/FundraiserServices";
 export default {
   data() {
     return {
-      photoUrl: "",
       notif: false,
       notifTimeOut: 5000,
       valid: true,
@@ -263,7 +262,7 @@ export default {
         "Other",
       ],
       typeOfUser: ["Individual", "Organization"],
-      nameOfInstitution: ["UNICEF", "RED CRUISE", "WHATEVER"],
+      nameOfInstitution: ["UNICEF", "RED CROSS", "WHATEVER"],
       isRegistered: false,
       isCreated: false,
       nameRules: [
@@ -300,6 +299,7 @@ export default {
       fundraiser: {
         fundRaiserName: "",
         description: "",
+        photoUrl: "",
         fundRaiserType: "",
         category: "",
         nameOfInstitution: "",
@@ -377,6 +377,7 @@ export default {
         fundRaiserType: this.$route.params.fundRaiserType,
         category: this.fundraiser.category,
         userUuid: userUuid,
+        photoUrl: this.generateRandomImage(),
         nameOfInstitution: this.fundraiser.nameOfInstitution,
         moneyGoal: this.fundraiser.moneyGoal,
         actualBalance: this.fundraiser.actualBalance,
@@ -389,7 +390,6 @@ export default {
           console.log(res);
           this.notifText = "You have launched your fundraiser campaign !";
           this.notif = true;
-          this.photoUrl = this.generateRandomImage();
           console.log(this.photoUrl);
         })
         .catch((err) => {

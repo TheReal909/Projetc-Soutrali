@@ -1,5 +1,10 @@
 <template>
-  <v-card class="mx-auto" max-width="400">
+  <v-card
+    style="margin: 1rem; background-color: transparent"
+    min-width="135px"
+    class="mx-auto"
+    max-width="300"
+  >
     <v-img
       class="white--text align-end"
       height="200px"
@@ -16,13 +21,11 @@
       <div>Whitsunday Island, Whitsunday Islands</div>
     </v-card-text>
 
-    <div class="d-flex align-items-center justify-content-center">
-      <v-card-actions class="d-flex align-items-center justify-content-center">
-        <v-btn color="success"> Donate </v-btn>
+    <v-card-actions class="d-flex align-items-center justify-content-center">
+      <v-btn color="success"> Donate </v-btn>
 
-        <v-btn color="orange">See Details</v-btn>
-      </v-card-actions>
-    </div>
+      <v-btn color="orange">See Details</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

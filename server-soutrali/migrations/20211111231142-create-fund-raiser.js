@@ -20,6 +20,9 @@ module.exports = {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      photoUrl: {
+        type: DataTypes.STRING,
+      },
       fundRaiserType: {
         allowNull: false,
         type: DataTypes.ENUM("SelfFundraiser", "Charity"),
@@ -40,7 +43,7 @@ module.exports = {
       },
       //should be added by admin while signing partnership.
       nameOfInstitution: {
-        type: DataTypes.ENUM("UNICEF", "RED CRUSE", "WHATEVER"),
+        type: DataTypes.ENUM("UNICEF", "RED CROSS", "WHATEVER"),
         defaultValue: "Select a NGO name",
       },
       moneyGoal: {
