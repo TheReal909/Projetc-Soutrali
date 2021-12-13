@@ -9,8 +9,8 @@
         <ul class="navLinks">
           <li class="nav-item"><a href="#">How it works?</a></li>
           <li class="nav-item"><a href="#">Sign in</a></li>
-          <router-link to="/fundraiserType">
-            <v-btn v-r class="mt-2" small color="success">Start now</v-btn>
+          <router-link style="text-decoration: none" to="/fundraiserType">
+            <v-btn class="mt-2" small color="light-green">Start now</v-btn>
           </router-link>
         </ul>
       </nav>
@@ -26,25 +26,23 @@
           <br />
           <div>Get help for what you need in just a few step.</div>
         </div>
-        <router-link to="/fundraiserType">
+        <router-link style="text-decoration: none" to="/fundraiserType">
           <div class="btnArea">
-            <v-btn large elevation="" color="success">Start now</v-btn>
+            <v-btn large elevation="" color="light-green">Start now</v-btn>
           </div>
         </router-link>
       </section>
       <hr />
 
       <section class="fundraiser-list">
-        <v-container
-          v-if="this.fundraisers.length == 0 && this.books.length == 0"
-        >
+        <v-container v-if="this.fundraisers.length == 0">
           <h1>Sorry, no fundraiser yet :(</h1>
         </v-container>
 
         <v-container v-else class="mt-2" fluid grid-list-md>
           <h2 class="mt-2">Launched Fundraisers</h2>
           <v-layout row wrap justify-center>
-            <v-flex v-for="book in books" :key="book.title" xs12 md6 lg3>
+            <v-flex v-for="fund in fundraisers" :key="fund.id" xs12 md6 lg3>
               <v-card
                 style="margin: 1rem; background-color: transparent"
                 min-width="135px"
@@ -54,23 +52,28 @@
                 <v-img
                   class="white--text align-end"
                   height="200px"
-                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                  :src="fund.photoUrl"
                 >
-                  <v-card-title>{{ book.title }}</v-card-title>
+                  <v-card-title>
+                    <v-chip color="teal accent-2" class="ma-2"> {{ fund.fundRaiserName }} </v-chip
+                    ></v-card-title
+                  >
                 </v-img>
 
-                <v-card-subtitle class="pb-0"> Number 10 </v-card-subtitle>
-
                 <v-card-text class="text--primary">
-                  <div>Whitehaven Beach</div>
+                  <div>
+                    {{ fund.actualBalance }}$ raised over {{ fund.moneyGoal }}$
+                  </div>
+                  <hr />
+                  <br />
 
-                  <div>Whitsunday Island, Whitsunday Islands</div>
+                  <div>{{ fund.description }}</div>
                 </v-card-text>
 
                 <v-card-actions class="justify-center">
-                  <v-btn color="success"> Donate </v-btn>
+                  <v-btn color="light-green"> Donate </v-btn>
 
-                  <v-btn color="orange">See Details</v-btn>
+                  <v-btn color="primary" text>See Details</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
@@ -80,7 +83,7 @@
       <hr />
 
       <section class="mt-2 mb-4 informations">
-         <h1 class="mb-2">Why using Soutrali ?</h1>
+        <h1 class="mb-2">Why using Soutrali ?</h1>
         <v-container>
           <v-layout row wrap justify-center>
             <v-flex
@@ -98,11 +101,15 @@
               </v-card>
             </v-flex>
           </v-layout>
-          <v-row>
-            <v-btn class="justify-center mt-4" large elevation="" color="success"
-              >START NOW</v-btn
-            >
-          </v-row>
+
+          <v-btn
+            style="text-decoration: none"
+            class="justify-center mt-4"
+            large
+            elevation=""
+            color="light-green"
+            >START NOW</v-btn
+          >
         </v-container>
       </section>
     </v-main>

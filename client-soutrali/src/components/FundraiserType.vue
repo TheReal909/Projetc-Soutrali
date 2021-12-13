@@ -2,14 +2,14 @@
   <v-main>
     <header><h1>Hi ! Tell us who are you fundraising for :)</h1></header>
     <div class="buttons">
-      <router-link :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'SelfFundraiser'} }">
+      <router-link style="text-decoration:none;" :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'SelfFundraiser'} }">
         <a class="forMeBtn">
         <h3>For me</h3>
         <p>The help you receive will directly be given to you.</p>
       </a>
       </router-link>
 
-      <router-link :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'Charity'} }">
+      <router-link style="text-decoration:none;" :to="{ name: 'CreateFundRaiser', params: {fundRaiserType: 'Charity'} }">
         <a class="forElseBtn">
         <div class="content">
           <h3>For charity</h3>

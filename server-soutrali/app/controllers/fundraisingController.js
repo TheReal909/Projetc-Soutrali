@@ -53,6 +53,7 @@ exports.createFundraising = async (req, res) => {
         description: req.body.description,
         fundRaiserType: fundRaiserType,
         userUuid: req.body.userUuid,
+        photoUrl: req.body.photoUrl,
         category: req.body.category,
         moneyGoal: req.body.moneyGoal,
         actualBalance: req.body.actualBalance
@@ -71,6 +72,7 @@ exports.createFundraising = async (req, res) => {
         fundRaiserName: req.body.fundRaiserName,
         description: req.body.description,
         fundRaiserType: fundRaiserType,
+        photoUrl: req.body.photoUrl,
         userUuid: req.body.userUuid,
         nameOfInstitution: req.body.nameOfInstitution,
         moneyGoal: req.body.moneyGoal,
@@ -85,6 +87,7 @@ exports.createFundraising = async (req, res) => {
         fundRaiserName: req.body.fundRaiserName,
         description: req.body.description,
         fundRaiserType: fundRaiserType,
+        photoUrl: req.body.photoUrl,
         userUuid: req.body.userUuid,
         nameOfInstitution: req.body.nameOfInstitution,
         moneyGoal: req.body.moneyGoal,

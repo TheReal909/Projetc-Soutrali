@@ -1,5 +1,15 @@
 <template>
   <v-main>
+    <header>
+      <router-link style="text-decoration:none" to="/">
+        <nav class="navbar">
+          <div class="navLogo">
+            <h2 style="color:black;">Soutrali</h2>
+          </div>
+        </nav>
+      </router-link>
+    </header>
+
     <v-card-title class="text-center justify-center py-6">
       <h1 class="font-weight-bold text-h2 light-green--text">
         Create your fundraiser in just a few steps !
@@ -133,85 +143,86 @@
             <v-btn color="primary" @click="e1 = 1" text> Previous </v-btn>
           </v-stepper-content>
           <v-stepper-content step="3">
-            <div class="registerForm">
+            <v-container>
               <h2>
                 In order to proceed, you should register first for security
                 check
               </h2>
               <br />
-              <v-form
-                v-model="valid"
-                ref="registerForm"
-                class="mx-2"
-                lazy-validation
-              >
-                <v-row>
-                  <v-col cols="6">
-                    <v-text-field
-                      v-model="user.firstName"
-                      :rules="nameRules"
-                      label="First Name"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-text-field
-                      v-model="user.lastName"
-                      :rules="nameRules"
-                      label="Last Name"
-                    >
-                    </v-text-field>
-                  </v-col>
-                </v-row>
+              <v-layout>
+                <v-form
+                  v-model="valid"
+                  ref="registerForm"
+                  class="mx-2"
+                  lazy-validation
+                >
+                  <v-row>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="user.firstName"
+                        :rules="nameRules"
+                        label="First Name"
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="user.lastName"
+                        :rules="nameRules"
+                        label="Last Name"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
 
-                <v-row>
-                  <v-col cols="6">
-                    <v-text-field
-                      v-model="user.email"
-                      :rules="emailRules"
-                      label="Email"
-                      required
-                    >
-                    </v-text-field>
-                  </v-col>
+                  <v-row>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="user.email"
+                        :rules="emailRules"
+                        label="Email"
+                        required
+                      >
+                      </v-text-field>
+                    </v-col>
 
-                  <v-col cols="6">
-                    <v-select
-                      :rules="[(v) => !!v || 'Please select a category']"
-                      label="Select a category"
-                      v-model="user.typeOfUser"
-                      :items="typeOfUser"
-                    >
-                    </v-select>
-                  </v-col>
-                </v-row>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-select
+                        :rules="[(v) => !!v || 'Please select a type of user']"
+                        label="Select a type of user"
+                        v-model="user.typeOfUser"
+                        :items="typeOfUser"
+                      >
+                      </v-select>
+                    </v-col>
+                  </v-row>
 
-                <v-row>
-                  <v-col cols="6">
-                    <v-text-field
-                      v-model="user.password"
-                      type="password"
-                      :rules="passwordRules"
-                      label="Password"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                  <v-row>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="user.password"
+                        type="password"
+                        :rules="passwordRules"
+                        label="Password"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
 
-                <v-row>
-                  <v-col cols="6">
-                    <v-text-field
-                      v-model="user.password2"
-                      type="password"
-                      :rules="confirmPasswordRules"
-                      label="Confirm your password"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-form>
-            </div>
-
+                  <v-row>
+                    <v-col xs="12" sm="12" md="6" lg="6">
+                      <v-text-field
+                        v-model="user.password2"
+                        type="password"
+                        :rules="confirmPasswordRules"
+                        label="Confirm your password"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </v-layout>
+            </v-container>
             <v-btn
               :disabled="!valid"
               color="light-green"
@@ -222,16 +233,30 @@
             <v-btn color="primary" @click="e1 = 2" text> Previous </v-btn>
           </v-stepper-content>
           <v-stepper-content step="4">
-            <section class="create">
+            <section v-if="!isCreated" class="create">
               <h2>Here we go ! You can now launch your fundraiser</h2>
               <br />
 
-              <v-btn
-                small
-                @click="launchFundraiser()"
-                elevation=""
-                color="success"
+              <v-btn small @click="launchFundraiser()" color="light-green"
                 >LAUNCH IT</v-btn
+              >
+            </section>
+
+            <section v-else class="created">
+              <h2>Fundraiser successfully launched !</h2>
+
+              <router-link to="/" style="text-decoration: none">
+                <v-btn
+                  class="mr-2"
+                  small
+                  @click="launchFundraiser()"
+                  color="light-green"
+                  >Go back to main page</v-btn
+                >
+              </router-link>
+
+              <v-btn small @click="launchFundraiser()" color="light-green"
+                >See details</v-btn
               >
             </section>
           </v-stepper-content>
@@ -391,6 +416,7 @@ export default {
           this.notifText = "You have launched your fundraiser campaign !";
           this.notif = true;
           console.log(this.photoUrl);
+          this.isCreated = true;
         })
         .catch((err) => {
           this.notif = true;
@@ -433,6 +459,28 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 800px;
+}
+
+header nav {
+  top: 0;
+  left: 0;
+  position: fixed;
+  /* overflow: hidden; */
+}
+
+.navLogo {
+  display: inline-block;
+}
+.navbar {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 10px;
+  background-color: whitesmoke !important;
+  z-index: 9999;
 }
 
 .stepBtn {
