@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       //should be added by admin while signing partnership.
       nameOfInstitution: {
         type: DataTypes.ENUM("UNICEF", "RED CROSS", "WHATEVER"),
+        // defaultValue:"NO DATA",
       },
       moneyGoal: {
         type: DataTypes.INTEGER,

@@ -44,7 +44,7 @@ module.exports = {
       //should be added by admin while signing partnership.
       nameOfInstitution: {
         type: DataTypes.ENUM("UNICEF", "RED CROSS", "WHATEVER"),
-        defaultValue: "Select a NGO name",
+        defaultValue: "NO DATA",
       },
       moneyGoal: {
         allowNull: false,

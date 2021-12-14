@@ -335,7 +335,7 @@ export default {
         photoUrl: "",
         fundRaiserType: "",
         category: "",
-        nameOfInstitution: "",
+        nameOfInstitution: "NO DATA",
         moneyGoal: 0,
         actualBalance: 0,
       },

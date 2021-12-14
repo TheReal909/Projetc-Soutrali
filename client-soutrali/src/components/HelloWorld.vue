@@ -17,20 +17,21 @@
     </header>
 
     <v-main>
-      <section class="WelcomePitch">
-        <div class="textPitch">
+      <section class="d-flex align-center justify-center WelcomePitch">
+        <div class="mb-10">
           <h1>
             A secured Fundraising platform for the people, by the people, <br />
             for a better community
           </h1>
           <br />
-          <div>Get help for what you need in just a few step.</div>
-        </div>
-        <router-link style="text-decoration: none" to="/fundraiserType">
+          <p class="mt-2">Get help for what you need in just a few step.</p>
+
+          <router-link style="text-decoration: none" to="/fundraiserType">
           <div class="btnArea">
             <v-btn large elevation="" color="light-green">Start now</v-btn>
           </div>
         </router-link>
+        </div>
       </section>
       <hr />
 
@@ -55,8 +56,12 @@
                   :src="fund.photoUrl"
                 >
                   <v-card-title>
-                    <v-chip color="teal accent-2" class="ma-2"> {{ fund.fundRaiserName }} </v-chip
-                    ></v-card-title
+                    <v-chip
+                      color="grey lighten-5"
+                      class="ma-2"
+                    >
+                      {{ fund.fundRaiserName }}
+                    </v-chip></v-card-title
                   >
                 </v-img>
 
@@ -86,12 +91,7 @@
         <h1 class="mb-2">Why using Soutrali ?</h1>
         <v-container>
           <v-layout row wrap justify-center>
-            <v-flex
-              xs12
-              lg3
-              v-for="message in messages"
-              :key="message.content"
-            >
+            <v-flex xs12 lg3 v-for="message in messages" :key="message.content">
               <v-card flat>
                 <v-card-text>
                   <p class="text-h6 text--primary">{{ message.name }}</p>
@@ -205,6 +205,12 @@ hr {
   padding-right: 10px;
   background-color: whitesmoke !important;
   z-index: 9999;
+}
+
+.WelcomePitch{
+  height: calc(70vh - 150px);
+  background-size: cover;
+  background-image: url("https://images.pexels.com/photos/2882569/pexels-photo-2882569.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-2882569.jpg&fm=jpg");
 }
 .navLinks {
   list-style: none;
