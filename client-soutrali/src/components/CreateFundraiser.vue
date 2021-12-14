@@ -249,13 +249,12 @@
                 <v-btn
                   class="mr-2"
                   small
-                  @click="launchFundraiser()"
                   color="light-green"
                   >Go back to main page</v-btn
                 >
               </router-link>
 
-              <v-btn small @click="launchFundraiser()" color="light-green"
+              <v-btn small color="light-green"
                 >See details</v-btn
               >
             </section>

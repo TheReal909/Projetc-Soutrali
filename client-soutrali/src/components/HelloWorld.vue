@@ -88,7 +88,6 @@
           <v-layout row wrap justify-center>
             <v-flex
               xs12
-              md6
               lg3
               v-for="message in messages"
               :key="message.content"
@@ -106,7 +105,6 @@
             style="text-decoration: none"
             class="justify-center mt-4"
             large
-            elevation=""
             color="light-green"
             >START NOW</v-btn
           >
