@@ -1,5 +1,4 @@
 <template>
-  <!-- only one el in template -->
   <v-app>
     <header>
       <nav class="navbar">
@@ -63,13 +62,11 @@
                 </v-img>
 
                 <v-card-text class="text--primary">
-                  <div>
+                  <span>
                     {{ fund.actualBalance }}$ raised over {{ fund.moneyGoal }}$
-                  </div>
-                  <hr />
-                  <br />
+                  </span>
 
-                  <div>{{ fund.description }}</div>
+                  <p style="color:grey">{{ fund.description }}</p>
                 </v-card-text>
 
                 <v-card-actions class="justify-center">
@@ -98,13 +95,15 @@
             </v-flex>
           </v-layout>
 
-          <v-btn
+          <router-link style="text-decoration: none" to="/fundraiserType">
+             <v-btn
             style="text-decoration: none"
             class="justify-center mt-4"
             large
             color="light-green"
             >START NOW</v-btn
           >
+          </router-link>
         </v-container>
       </section>
     </v-main>
@@ -207,7 +206,7 @@ hr {
 .WelcomePitch {
   height: calc(70vh - 150px);
   background-size: cover;
-  background-image: url("https://images.pexels.com/photos/2882569/pexels-photo-2882569.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-2882569.jpg&fm=jpg");
+  background-image: url("https://images.pexels.com/photos/8386733/pexels-photo-8386733.jpeg?cs=srgb&dl=pexels-tara-winstead-8386733.jpg&fm=jpg");
 }
 .navLinks {
   list-style: none;
