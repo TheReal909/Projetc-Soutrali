@@ -1,10 +1,10 @@
 <template>
   <v-main>
     <header>
-      <router-link style="text-decoration:none" to="/">
+      <router-link style="text-decoration: none" to="/">
         <nav class="navbar">
           <div class="navLogo">
-            <h2 style="color:black;">Soutrali</h2>
+            <h2 style="color: black">Soutrali</h2>
           </div>
         </nav>
       </router-link>
@@ -18,9 +18,22 @@
 
     <!-- should responsive the page -->
     <div class="stepperLayout">
-      <v-snackbar v-model="notif" :timeout="notifTimeOut">{{
-        notifText
-      }}</v-snackbar>
+      <v-snackbar
+        bottom
+        right
+        color="green accent-4"
+        v-model="notifSuccess"
+        :timeout="notifTimeOut"
+        >{{ notifText }}</v-snackbar
+      >
+      <v-snackbar
+        bottom
+        left
+        color="red accent-4"
+        v-model="notifError"
+        :timeout="notifTimeOut"
+        >{{ notifText }}</v-snackbar
+      >
       <v-stepper v-model="e1">
         <v-stepper-header>
           <v-stepper-step :complete="e1 > 1" step="1"> Step 1 </v-stepper-step>
@@ -246,17 +259,12 @@
               <h2>Fundraiser successfully launched !</h2>
 
               <router-link to="/" style="text-decoration: none">
-                <v-btn
-                  class="mr-2"
-                  small
-                  color="light-green"
+                <v-btn class="mr-2" small color="light-green"
                   >Go back to main page</v-btn
                 >
               </router-link>
 
-              <v-btn small color="light-green"
-                >See details</v-btn
-              >
+              <v-btn small color="light-green">See details</v-btn>
             </section>
           </v-stepper-content>
         </v-stepper-items>
@@ -271,7 +279,8 @@ import FundraiserService from "../services/FundraiserServices";
 export default {
   data() {
     return {
-      notif: false,
+      notifSuccess: false,
+      notifError: false,
       notifTimeOut: 5000,
       valid: true,
       notifText: "",
@@ -366,14 +375,14 @@ export default {
         UserService.createUser(userData)
           .then((res) => {
             localStorage.setItem("userUuid", res.uuid);
-            this.notifText = "Register with success";
-            this.notif = true;
+            this.notifText = "Registered with success";
+            this.notifSuccess = true;
             this.e1 = 4;
           })
-          .catch((err) => {
-            this.notifText = "Register failed " + err;
-            this.notif = true;
-            console.log(err);
+          .catch(error => {
+            console.log(error);
+            this.notifText = "Registration failed " + error.message;
+            this.notifError = true;
           });
       }
     },
@@ -413,13 +422,13 @@ export default {
         .then((res) => {
           console.log(res);
           this.notifText = "You have launched your fundraiser campaign !";
-          this.notif = true;
+          this.notifSuccess = true;
           console.log(this.photoUrl);
           this.isCreated = true;
         })
         .catch((err) => {
-          this.notif = true;
-          this.notifText = "Oups , something went wrong " + err;
+          this.notifError = true;
+          this.notifText = "Oups , something went wrong " + err.message;
           console.log(err);
         });
     },
