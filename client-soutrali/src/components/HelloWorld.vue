@@ -27,10 +27,10 @@
           <p class="mt-2">Get help for what you need in just a few step.</p>
 
           <router-link style="text-decoration: none" to="/fundraiserType">
-          <div class="btnArea">
-            <v-btn large elevation="" color="light-green">Start now</v-btn>
-          </div>
-        </router-link>
+            <div class="btnArea">
+              <v-btn large elevation="" color="light-green">Start now</v-btn>
+            </div>
+          </router-link>
         </div>
       </section>
       <hr />
@@ -56,10 +56,7 @@
                   :src="fund.photoUrl"
                 >
                   <v-card-title>
-                    <v-chip
-                      color="grey lighten-5"
-                      class="ma-2"
-                    >
+                    <v-chip color="grey lighten-5" class="ma-2">
                       {{ fund.fundRaiserName }}
                     </v-chip></v-card-title
                   >
@@ -207,7 +204,7 @@ hr {
   z-index: 9999;
 }
 
-.WelcomePitch{
+.WelcomePitch {
   height: calc(70vh - 150px);
   background-size: cover;
   background-image: url("https://images.pexels.com/photos/2882569/pexels-photo-2882569.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-2882569.jpg&fm=jpg");
